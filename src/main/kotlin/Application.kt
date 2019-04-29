@@ -18,15 +18,6 @@ import kotlin.coroutines.CoroutineContext
 class Application(bindings: AbstractBinder = ProductionBindings()) : ResourceConfig() {
     init {
         packages("rest")
-
-//        register(LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
-//                Level.INFO,
-//                LoggingFeature.Verbosity.PAYLOAD_ANY,
-//                Integer.MAX_VALUE)
-//        )
-
-//        register(ContextResolver<ObjectMapper> { ObjectMapper().registerModule(KotlinModule()) })
-
         register(bindings)
         register(ExceptionLogger())
     }
@@ -40,7 +31,7 @@ class ProductionGlobalScope
 class ProductionBindings : AbstractBinder() {
     override fun configure() {
         bind(AccountService::class.java).to(AccountServiceInt::class.java)
-        bind(DbSettingsProduction::class.java).to(DbSettings::class.java)
+        bind(DbSettingsProduction).to(DbSettings::class.java)
         bind(ProductionGlobalScope::class.java).to(CoroutineScope::class.java)
     }
 }

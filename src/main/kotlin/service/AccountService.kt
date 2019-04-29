@@ -1,12 +1,11 @@
 package service
 
 import dao.Account
-import dao.Accounts
 import dao.DbSettings
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.StdOutSqlLogger
+import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.transactions.transaction
 import rest.MoneyTransferDto
 import java.util.concurrent.ConcurrentHashMap
@@ -23,19 +22,6 @@ class AccountService
         private val dbSettings: DbSettings,
         private val coroutineScope: CoroutineScope
 ): AccountServiceInt {
-
-//    init {
-////        transaction(dbSettings.db) {
-////            addLogger(StdOutSqlLogger)
-////            SchemaUtils.drop(Accounts)
-////            SchemaUtils.createMissingTablesAndColumns(Accounts)
-////            for (i in 0..9) {
-////                Account.new("acc00$i") {
-////                    value = 1000.0
-////                }
-////            }
-////        }
-////    }
 
     private val locksMap: ConcurrentHashMap<String, ReentrantLock> = ConcurrentHashMap()
 

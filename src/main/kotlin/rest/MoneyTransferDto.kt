@@ -6,6 +6,7 @@ class MoneyTransferDto {
     var accountTo: String
     var moneyValue: Double
 
+    // for Jackson
     constructor() {
         this.accountFrom = ""
         this.accountTo = ""
